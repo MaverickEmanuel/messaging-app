@@ -20,7 +20,7 @@ const TeamChannelPreview = ({ setActiveChannel, setToggleContainer, setIsCreatin
                     name={members[0]?.user?.fullName}
                     size={24}
                 />
-                <p>{members[0]?.user?.fullName}</p>
+                <p>{members[0]?.user?.fullName || members[0]?.user?.id}</p>
             </div>
         )
     }
