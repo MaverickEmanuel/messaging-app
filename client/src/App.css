@@ -201,6 +201,7 @@
   .str-chat-channel-list {
     height: fit-content;
     margin-bottom: 8px;
+    background: var(--primary-color);
   }
   
   .str-chat-channel {
