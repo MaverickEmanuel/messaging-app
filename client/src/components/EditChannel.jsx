@@ -28,7 +28,7 @@ const EditChannel = ({ setIsEditing }) => {
 	const updateChannel = async (event) => {
 		event.preventDefault();
 
-		const nameChanged = channelName != (channel.data.name || channel.data.id);
+		const nameChanged = channelName !== (channel.data.name || channel.data.id);
 
 		if(nameChanged) {
 			await channel.update({ name: channelName }, { text: `Channel name changed to ${channelName}` });
