@@ -1,7 +1,5 @@
 # Messaging App
 
-Welcome to the Messaging App! This web application offers a seamless and secure way to communicate with friends, family, and colleagues. With a focus on usability and security, our app includes the following features:
-
 ## Features
 
 - **Authentication:** Secure user authentication ensures that your account and data are protected. Sign up easily and log in with confidence.
