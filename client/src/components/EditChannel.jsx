@@ -22,25 +22,25 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
 
 const EditChannel = ({ setIsEditing }) => {
 	const { channel } = useChatContext();
-	const [channelName, setChannelName] = useState(channel?.data?.name);
-	const [selectedUsers, setSelectedUsers] = useState([]);
+    const [channelName, setChannelName] = useState(channel?.data?.name);
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
 	const updateChannel = async (event) => {
 		event.preventDefault();
 
-		const nameChanged = channelName !== (channel.data.name || channel.data.id);
+        const nameChanged = channelName !== (channel.data.name || channel.data.id);
 
-		if(nameChanged) {
-			await channel.update({ name: channelName }, { text: `Channel name changed to ${channelName}` });
-		}
+        if(nameChanged) {
+            await channel.update({ name: channelName }, { text: `Channel name changed to ${channelName}`});
+        }
 
-		if(selectedUsers.length) {
-			await channel.addMembers(selectedUsers);
-		}
+        if(selectedUsers.length) {
+            await channel.addMembers(selectedUsers);
+        }
 
-		setChannelName(null);
-		setIsEditing(false);
-		setSelectedUsers([]);
+        setChannelName(null);
+        setIsEditing(false);
+        setSelectedUsers([]);
 	}
 
 	return (

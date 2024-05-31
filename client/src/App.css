@@ -279,7 +279,7 @@
     font-weight: bold;
     font-size: 18px;
     line-height: 120%;
-    color: #2c2c30;
+    color: #e4e5e7;
     margin-bottom: 10px;
   }
   
@@ -292,7 +292,7 @@
     font-size: 14px;
     line-height: 120%;
     margin: 0;
-    color: #858688;
+    color: #e4e5e7;
   }
   
   .channel__container {
@@ -837,7 +837,8 @@
     font-weight: bold;
     font-size: 18px;
     padding: 10px 20px;
-    color: #a1a5aa;
+    color: #ffffff;
+    background: #7289da;
     margin-right: 30px;
     border-radius: 8px;
     cursor: pointer;
