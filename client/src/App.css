@@ -226,7 +226,8 @@
     --str-chat__deleted-message-background-color: #5f646d;
     --str-chat__message-replies-count-color: #e4e5e7;
     --str-chat__message-options-color: #e4e5e7;
-    --str-chat__message-options-active-color: #94979e;
+    --str-chat__message-options-active-color: #36393e;
+    --str-chat__message-options-hover-background-color: #777d88;
     --str-chat__system-message-color: #94979e;
     --str-chat__message-link-color: #3d3f43;
 
@@ -237,6 +238,17 @@
     --str-chat__message-send-disabled-color: #e4e5e7;
     --str-chat__message-input-tools-color: #e4e5e7;
     --str-chat__message-textarea-background-color: #474b52;
+
+    /* message actions component */
+    --str-chat__message-actions-box-item-color: #ffffff;
+    --str-chat__message-actions-box-background-color: #36393e;
+
+    /* message reactions component */
+    --str-chat__message-reactions-color: #94979e;
+    --str-chat__message-reaction-color: #94979e;
+    --str-chat__own-message-reaction-color: #94979e;
+    --str-chat__own-message-reaction-background-color: #94979e;
+    --str-chat__message-reaction-background-color: #94979e;
 
     /* thread component */
     --str-chat__thread-color: #e4e5e7;
