@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useChat, useChatContext } from 'stream-chat-react';
+import { useChatContext } from 'stream-chat-react';
 
 import { UserList } from './';
 import { CloseCreateChannel } from '../assets';
