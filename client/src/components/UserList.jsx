@@ -71,7 +71,7 @@ const UserList = ({ setSelectedUsers }) => {
         }
 
         if(client) getUsers()
-    }, []);
+    }, [client, loading]);
 
     if(error) {
         return (
