@@ -212,7 +212,7 @@
     --str-chat__secondary-surface-color: #3d3f43;
     --str-chat__primary-surface-color: #3d3f43;
     --str-chat__primary-surface-color-low-emphasis: #3d3f43;
-    --str-chat__text-color: #e4e5e7;
+    --str-chat__text-color: #61646b;
     --str-chat__text-low-emphasis-color: #c9cbcf;
     --str-chat__danger-color: #df2020;
 
@@ -227,7 +227,20 @@
     --str-chat__message-replies-count-color: #e4e5e7;
     --str-chat__message-options-color: #e4e5e7;
     --str-chat__message-options-active-color: #94979e;
-    --str-chat__system-message-color: #3d3f43;
+    --str-chat__system-message-color: #94979e;
+    --str-chat__message-link-color: #3d3f43;
+
+    /* message input component */
+    --str-chat__message-input-color: #e4e5e7;
+    --str-chat__message-textarea-color: #e4e5e7;
+    --str-chat__message-send-color: #e4e5e7;
+    --str-chat__message-send-disabled-color: #e4e5e7;
+    --str-chat__message-input-tools-color: #e4e5e7;
+    --str-chat__message-textarea-background-color: #474b52;
+
+    /* thread component */
+    --str-chat__thread-color: #e4e5e7;
+    --str-chat__thread-header-color: #e4e5e7;
   }
   
   .channel-empty__container {
@@ -865,7 +878,7 @@
   }
   
   .channel-preview__wrapper {
-    height: 37px;
+    height: 40px;
     display: flex;
     align-items: center;
   }
