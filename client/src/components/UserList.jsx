@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Avatar, useChatContext } from 'stream-chat-react';
 
 import { InviteIcon } from '../assets';
@@ -40,11 +40,17 @@ const UserItem = ({ user, setSelectedUsers }) => {
 }
 
 const UserList = ({ setSelectedUsers }) => {
-    const { client } = useChatContext();
+    const { client, channel } = useChatContext();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [listEmpty, setListEmpty] = useState(false);
     const [error, setError] = useState(false);
+
+    const channelMembers = useMemo(() => channel?.state.members
+        ? Object.keys(channel.state.members)
+        : [],
+        [channel?.state?.members],
+    );
 
     useEffect(() => {
         const getUsers = async () => {
@@ -54,7 +60,7 @@ const UserList = ({ setSelectedUsers }) => {
             
             try {
                 const response = await client.queryUsers(
-                    { id: { $ne: client.userID } },
+                    { id: { $nin: channelMembers } },
                     { id: 1 },
                     { limit: 8 } 
                 );
@@ -66,12 +72,14 @@ const UserList = ({ setSelectedUsers }) => {
                 }
             } catch (error) {
                setError(true);
+               console.log(error);
             }
+
             setLoading(false);
         }
 
         if(client) getUsers()
-    }, [client, loading]);
+    }, [client, channelMembers]);
 
     if(error) {
         return (
