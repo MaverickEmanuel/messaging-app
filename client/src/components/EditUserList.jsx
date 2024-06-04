@@ -39,7 +39,7 @@ const UserItem = ({ user, setSelectedUsers }) => {
     )
 }
 
-const UserList = ({ setSelectedUsers }) => {
+const EditUserList = ({ setSelectedUsers }) => {
     const { client, channel } = useChatContext();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -114,4 +114,4 @@ const UserList = ({ setSelectedUsers }) => {
     )
 }
 
-export default UserList
+export default EditUserList

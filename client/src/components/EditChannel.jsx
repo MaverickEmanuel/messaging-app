@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useChatContext } from 'stream-chat-react';
 
-import { UserList } from './';
+import { EditUserList, ViewUserList } from './';
 import { CloseCreateChannel } from '../assets';
 
 const ChannelNameInput = ({ channelName = '', setChannelName }) => {
@@ -15,7 +15,6 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
 		<div className='channel-name-input__wrapper'>
 			<p>Name</p>
 			<input value={channelName} onChange={handleChange} placeholder='channel-name (no spaces)' />
-			<p>Add Members</p>
 		</div>
 	)
 }
@@ -50,7 +49,10 @@ const EditChannel = ({ setIsEditing }) => {
 				<CloseCreateChannel setIsEditing={setIsEditing} />
 			</div>
 			<ChannelNameInput channelName={channelName} setChannelName={setChannelName} />
-			<UserList setSelectedUsers={setSelectedUsers} />
+			<p className='edit-channel__label'>View Members</p>
+			<ViewUserList setSelectedUsers={setSelectedUsers} />
+			<p className='edit-channel__label'>Add Members</p>
+			<EditUserList setSelectedUsers={setSelectedUsers} />
 			<div className='edit-channel__button-wrapper' onClick={updateChannel}>
 				<p>Save Changes</p>
 			</div>

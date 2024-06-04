@@ -740,6 +740,18 @@
     font-weight: 300;
     color: #ffffff;
   }
+
+  .edit-channel__label {
+    font-family: Helvetica Neue, sans-serif;
+    font-size: 16px;
+    line-height: 120%;
+    color: #ffffff;
+    margin-top: 30px;
+    margin-bottom: 0px;
+    height: 120px;
+    padding-left: 20px;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.1);
+  }
   
   .edit-channel__button-wrapper {
     height: 82px;
