@@ -44,7 +44,7 @@ const ViewUserList = () => {
             
             try {
                 const response = await client.queryUsers(
-                    { $and: [ { id: { $in: channelMembers }, id: { $ne: client.userID } } ] },
+                    { $and: [ { id: { $ne: client.userID } }, { id: { $in: channelMembers } } ] },
                     { id: 1 },
                     { limit: 8 } 
                 );
