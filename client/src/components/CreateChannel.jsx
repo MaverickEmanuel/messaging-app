@@ -15,7 +15,6 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
 		<div className='channel-name-input__wrapper'>
 			<p>Name</p>
 			<input value={channelName} onChange={handleChange} placeholder='channel-name (no spaces)' />
-			<p>Add Members</p>
 		</div>
 	)
 }
@@ -51,10 +50,24 @@ const CreateChannel = ({ createType, setIsCreating }) => {
 				<CloseCreateChannel setIsCreating={setIsCreating} />
 			</div>
 			{createType === 'team' && <ChannelNameInput channelName={channelName} setChannelName={setChannelName} />}
+			<p className='channel-name-input__label'>Add Members</p>
 			<EditUserList setSelectedUsers={setSelectedUsers} />
-			<div className='create-channel__button-wrapper' onClick={createChannel}>
-				<p>{createType === 'team' ? 'Create Channel' : 'Create Message Group'}</p>
-			</div>
+			{createType === 'team' ? 
+				channelName === '' ? <div className='create-channel__button-wrapper__inactive'>
+					<p>Create Channel</p>
+				</div> : (
+				<div className='create-channel__button-wrapper' onClick={createChannel}>
+					<p>Create Channel</p>
+				</div>
+				) : 
+				selectedUsers.length === 1 ? <div className='create-channel__button-wrapper__inactive'>
+					<p>Create Message Group</p>
+				</div> : (
+				<div className='create-channel__button-wrapper' onClick={console.log(selectedUsers)}>
+					<p>Create Message Group</p>
+				</div>
+				)
+			}
 		</div>
   	)
 }
