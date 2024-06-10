@@ -825,10 +825,17 @@
     font-size: 18px;
     padding: 10px 20px;
     color: #ffffff;
-    background: #7289da;
     margin-right: 30px;
     border-radius: 8px;
     cursor: pointer;
+  }
+
+  .edit-channel__button-leave {
+    background: #df2020;
+  }
+
+  .edit-channel__button-update {
+    background: #7289da;
   }
   
   .team-channel-header__container {

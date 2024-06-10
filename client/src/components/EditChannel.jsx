@@ -20,7 +20,7 @@ const ChannelNameInput = ({ channelName = '', setChannelName }) => {
 }
 
 const EditChannel = ({ setIsEditing }) => {
-	const { channel } = useChatContext();
+	const { client, channel } = useChatContext();
     const [channelName, setChannelName] = useState(channel?.data?.name);
     const [selectedUsers, setSelectedUsers] = useState([]);
 
@@ -42,6 +42,12 @@ const EditChannel = ({ setIsEditing }) => {
         setSelectedUsers([]);
 	}
 
+	const leaveChannel = async (event) => {
+		event.preventDefault();
+
+		await channel.removeMembers([client.userID]);
+	}
+
 	return (
 		<div className='edit-channel__container'>
 			<div className='edit-channel__header'>
@@ -53,8 +59,9 @@ const EditChannel = ({ setIsEditing }) => {
 			<ViewUserList setSelectedUsers={setSelectedUsers} />
 			<p className='edit-channel__label'>Add Members</p>
 			<EditUserList setSelectedUsers={setSelectedUsers} />
-			<div className='edit-channel__button-wrapper' onClick={updateChannel}>
-				<p>Save Changes</p>
+			<div className='edit-channel__button-wrapper'>
+				<p className='edit-channel__button-leave' onClick={leaveChannel}>Leave Channel</p>
+				<p className='edit-channel__button-update' onClick={updateChannel}>Save Changes</p>
 			</div>
 		</div>
 	)

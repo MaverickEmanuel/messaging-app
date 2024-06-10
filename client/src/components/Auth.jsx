@@ -11,7 +11,7 @@ const initialState = {
     username: '',
     password: '',
     confirmPassword: '',
-    phoneNumber: '',
+    email: '',
     avatarURL: '',
 }
 
@@ -26,12 +26,12 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { username, password, phoneNumber, avatarURL } = form;
+        const { username, password, email, avatarURL } = form;
 
         const URL = 'https://messaging-app-b1q0.onrender.com/auth';
 
         const { data : { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
-            username, password, fullName: form.fullName, phoneNumber, avatarURL
+            username, password, fullName: form.fullName, email, avatarURL
         });
 
         cookies.set('token', token);
@@ -40,7 +40,7 @@ const Auth = () => {
         cookies.set('userId', userId);
 
         if(isSignup) {
-            cookies.set('phoneNumber', phoneNumber);
+            cookies.set('email', email);
             cookies.set('avatarURL', avatarURL);
             cookies.set('hashedPassword', hashedPassword);
         };
@@ -82,11 +82,11 @@ const Auth = () => {
                         </div>
                         {isSignup && (
                             <div className='auth__form-container_fields-content_input'>
-                                <label htmlFor='phoneNumber'>Phone Number</label>
+                                <label htmlFor='email'>Email</label>
                                 <input 
-                                    name='phoneNumber'
+                                    name='email'
                                     type='text'
-                                    placeholder='Phone Number'
+                                    placeholder='Email'
                                     onChange={handleChange}
                                     required
                                 />
