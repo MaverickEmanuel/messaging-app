@@ -227,11 +227,11 @@
 
     /* message component */
     --str-chat__message-color: #3d3f43;
-    --str-chat__message-background-color: #3d3f43;
     --str-chat__message-bubble-color: #3d3f43;
-    --str-chat__message-bubble-background-color: #ffffff;
+    --str-chat__message-bubble-background-color: #f2f2f3;
     --str-chat__own-message-bubble-color: #3d3f43;
-    --str-chat__own-message-bubble-background-color: #ffffff;
+    --str-chat__own-message-bubble-background-color: #f2f2f3;
+    --str-chat__quoted-message-bubble-background-color: #d7d8db;
     --str-chat__deleted-message-background-color: #5f646d;
     --str-chat__message-replies-count-color: #e4e5e7;
     --str-chat__message-options-color: #e4e5e7;
@@ -253,11 +253,11 @@
     --str-chat__message-actions-box-background-color: #36393e;
 
     /* message reactions component */
-    --str-chat__message-reactions-color: #94979e;
-    --str-chat__message-reaction-color: #94979e;
-    --str-chat__own-message-reaction-color: #94979e;
-    --str-chat__own-message-reaction-background-color: #94979e;
-    --str-chat__message-reaction-background-color: #94979e;
+    --str-chat__message-reactions-color: #bcbec2;
+    --str-chat__message-reaction-color: #bcbec2;
+    --str-chat__own-message-reaction-color: #bcbec2;
+    --str-chat__own-message-reaction-background-color: #b3b5ff;
+    --str-chat__message-reaction-background-color: #bcbec2;
 
     /* thread component */
     --str-chat__thread-color: #e4e5e7;
