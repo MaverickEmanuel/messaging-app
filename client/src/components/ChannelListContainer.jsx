@@ -4,15 +4,21 @@ import Cookies from 'universal-cookie';
 
 import { ChannelSearch, TeamChannelList, TeamChannelPreview } from './';
 import MessageIcon from '../assets/MessageIcon.png';
+import GithubIcon from '../assets/github.png';
 import LogoutIcon from '../assets/logout.png';
 
 const cookies = new Cookies();
 
-const SideBar = ({ logout }) => (
+const SideBar = ({ logout, openGithub }) => (
     <div className='channel-list__sidebar'>
         <div className='channel-list__sidebar__icon1'>
             <div className='icon__inner'>
                 <img src={MessageIcon} alt='Message' width='30' />
+            </div>
+        </div>
+        <div className='channel-list__sidebar__icon2'>
+            <div className='icon__inner' onClick={openGithub}>
+                <img src={GithubIcon} alt='Github' width='30' />
             </div>
         </div>
         <div className='channel-list__sidebar__icon2'>
@@ -52,11 +58,15 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
         window.location.reload();
     };
 
+    const openGithub = () => {
+        window.open('https://github.com/MaverickEmanuel/messaging-app', '_blank').focus();
+    };
+
     const filters = { members: { $in: [client.userID] } };
 
     return (
         <>
-            <SideBar logout={logout} />
+            <SideBar logout={logout} openGithub={openGithub} />
             <div className='channel-list__list__wrapper'>
                 <CompanyHeader />
                 <ChannelSearch setToggleContainer={setToggleContainer} />
