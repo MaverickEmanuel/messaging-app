@@ -17,7 +17,9 @@ const initialState = {
 
 const Auth = () => {
     const [form, setForm] = useState(initialState);
-    const [isSignup, setIsSignup] = useState(true);
+    const [isSignup, setIsSignup] = useState(false);
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,26 +28,42 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { username, password, email, avatarURL } = form;
+        try {
+            const { username, password, email, avatarURL } = form;
 
-        const URL = 'https://messaging-app-b1q0.onrender.com/auth';
+            const URL = 'https://messaging-app-b1q0.onrender.com/auth';
 
-        const { data : { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
-            username, password, fullName: form.fullName, email, avatarURL
-        });
+            const { data : { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+                username, password, fullName: form.fullName, email, avatarURL
+            });
 
-        cookies.set('token', token);
-        cookies.set('username', username);
-        cookies.set('fullName', fullName);
-        cookies.set('userId', userId);
+            cookies.set('token', token);
+            cookies.set('username', username);
+            cookies.set('fullName', fullName);
+            cookies.set('userId', userId);
 
-        if(isSignup) {
-            cookies.set('email', email);
-            cookies.set('avatarURL', avatarURL);
-            cookies.set('hashedPassword', hashedPassword);
-        };
+            if(isSignup) {
+                cookies.set('email', email);
+                cookies.set('avatarURL', avatarURL);
+                cookies.set('hashedPassword', hashedPassword);
+            };
 
-        window.location.reload();
+            setUsernameError(false);
+            setPasswordError(false);
+
+            window.location.reload();
+
+        } catch(error) {
+            if(error.response.status == 400) {
+                console.log('User does not exist');
+                setUsernameError(true);
+                setPasswordError(false);
+            } else if(error.response.status == 500) {
+                console.log('Incorrect password');
+                setUsernameError(false);
+                setPasswordError(true);
+            }
+        }     
     };
 
     const switchMode = () => {
@@ -79,6 +97,9 @@ const Auth = () => {
                                 onChange={handleChange}
                                 required
                             />
+                            <div className='auth__form-container_fields-content-error'>
+                                {usernameError && <p>User does not exist</p>}
+                            </div>
                         </div>
                         {isSignup && (
                             <div className='auth__form-container_fields-content_input'>
@@ -113,6 +134,9 @@ const Auth = () => {
                                 onChange={handleChange}
                                 required
                             />
+                            <div className='auth__form-container_fields-content-error'>
+                                {passwordError && <p>Incorrect password</p>}
+                            </div>
                         </div>
                         {isSignup && (
                             <div className='auth__form-container_fields-content_input'>
