@@ -16,8 +16,12 @@ const signup = async (req, res) => {
         const userId = crypto.randomBytes(16).toString('hex');
 
         const serverClient = connect(api_key, api_secret, app_id);
-        if(serverClient.queryUsers({ id: serverClient.userId })) return res.status(400).json({ message: 'User not found' });
+        const client = StreamChat.getInstance(api_key, api_secret);
 
+        const { users } = await client.queryUsers({ name: username });
+
+        if(users.length > 0) return res.status(400).json({ message: 'User already exists' });
+        
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const token = serverClient.createUserToken(userId);
