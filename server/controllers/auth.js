@@ -16,6 +16,7 @@ const signup = async (req, res) => {
         const userId = crypto.randomBytes(16).toString('hex');
 
         const serverClient = connect(api_key, api_secret, app_id);
+        if(serverClient.queryUsers({ id: serverClient.userId })) return res.status(400).json({ message: 'User not found' });
 
         const hashedPassword = await bcrypt.hash(password, 10);
 

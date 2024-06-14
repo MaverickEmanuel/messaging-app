@@ -20,6 +20,7 @@ const Auth = () => {
     const [isSignup, setIsSignup] = useState(false);
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    const [userExists, setUserExists] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -50,6 +51,7 @@ const Auth = () => {
 
             setUsernameError(false);
             setPasswordError(false);
+            setUserExists(false);
 
             window.location.reload();
 
@@ -59,9 +61,13 @@ const Auth = () => {
                 setUsernameError(true);
                 setPasswordError(false);
             } else if(error.response.status == 500) {
-                console.log('Incorrect password');
-                setUsernameError(false);
-                setPasswordError(true);
+                if(isSignup) {
+                    setUserExists(true);
+                } else {
+                    console.log('Incorrect password');
+                    setUsernameError(false);
+                    setPasswordError(true);
+                }
             }
         }     
     };
@@ -99,6 +105,7 @@ const Auth = () => {
                             />
                             <div className='auth__form-container_fields-content-error'>
                                 {usernameError && <p>User does not exist</p>}
+                                {userExists && <p>Username already exists</p>}
                             </div>
                         </div>
                         {isSignup && (
