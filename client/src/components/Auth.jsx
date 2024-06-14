@@ -60,13 +60,18 @@ const Auth = () => {
                 console.log('User does not exist');
                 setUsernameError(true);
                 setPasswordError(false);
+                setUserExists(false);
             } else if(error.response.status == 500) {
                 if(isSignup) {
+                    console.log('Username already exists');
+                    setUsernameError(false);
+                    setPasswordError(false);
                     setUserExists(true);
                 } else {
                     console.log('Incorrect password');
                     setUsernameError(false);
                     setPasswordError(true);
+                    setUserExists(false);
                 }
             }
         }     
