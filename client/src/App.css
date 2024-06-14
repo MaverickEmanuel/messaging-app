@@ -221,8 +221,8 @@
     --str-chat__secondary-surface-color: #3d3f43;
     --str-chat__primary-surface-color: #3d3f43;
     --str-chat__primary-surface-color-low-emphasis: #3d3f43;
-    --str-chat__text-color: #61646b;
-    --str-chat__text-low-emphasis-color: #c9cbcf;
+    --str-chat__text-color: #f2f2f3;
+    --str-chat__text-low-emphasis-color: #aeb1b7;
     --str-chat__danger-color: #df2020;
 
     /* message component */
@@ -262,6 +262,10 @@
     /* thread component */
     --str-chat__thread-color: #e4e5e7;
     --str-chat__thread-header-color: #e4e5e7;
+
+    /* edit message form component */
+    --str-chat__edit-message-modal-send-button-color: #e4e5e7;
+    --str-chat__edit-message-modal-cancel-button-color: #c9cbcf;
   }
   
   .channel-empty__container {
