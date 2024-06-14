@@ -12,8 +12,8 @@
 
 1. **Sign Up or Log In:**
    - Open the app [here](https://mav-messaging-app.netlify.app/).
-   - Click on the "Sign Up" button to create a new account by entering your details.
-   - If you already have an account, click on the "Log In" button and enter your credentials.
+   - Enter your credentials and click on the "Sign In" button.
+   - If you don't already have an account, click on the "Sign In" button to create a new account by entering your details.
 
 ## Technologies
 - [React](https://react.dev/)
