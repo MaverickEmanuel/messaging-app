@@ -19,8 +19,11 @@ const Auth = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
     const [usernameError, setUsernameError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
     const [userExists, setUserExists] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const [passwordDiff, setPasswordDiff] = useState(false);
+    const [passwordInvalid, setPasswordInvalid] = useState(false);
+    
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -29,55 +32,74 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const { username, password, email, avatarURL } = form;
+        const { password, confirmPassword } = form;
 
-            const URL = 'https://messaging-app-b1q0.onrender.com/auth';
 
-            const { data : { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
-                username, password, fullName: form.fullName, email, avatarURL
-            });
-
-            cookies.set('token', token);
-            cookies.set('username', username);
-            cookies.set('fullName', fullName);
-            cookies.set('userId', userId);
-
-            if(isSignup) {
-                cookies.set('email', email);
-                cookies.set('avatarURL', avatarURL);
-                cookies.set('hashedPassword', hashedPassword);
-            };
-
-            setUsernameError(false);
-            setPasswordError(false);
-            setUserExists(false);
-
-            window.location.reload();
-
-        } catch(error) {
-            if(error.response.status == 400) {
+        if(isSignup && password != confirmPassword) {
+            setPasswordDiff(true);
+        } else if(isSignup && password.length < 6) {
+            setPasswordDiff(false);
+            setPasswordInvalid(true);
+        } else {
+            try {
+                const { username, password, email, avatarURL } = form;
+    
+                const URL = 'https://messaging-app-b1q0.onrender.com/auth';
+    
+                const { data : { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+                    username, password, fullName: form.fullName, email, avatarURL
+                });
+    
+                cookies.set('token', token);
+                cookies.set('username', username);
+                cookies.set('fullName', fullName);
+                cookies.set('userId', userId);
+    
                 if(isSignup) {
-                    console.log('Username already exists');
+                    cookies.set('email', email);
+                    cookies.set('avatarURL', avatarURL);
+                    cookies.set('hashedPassword', hashedPassword);
+                };
+    
+                setUsernameError(false);
+                setPasswordError(false);
+                setUserExists(false);
+                setPasswordDiff(false);
+                setPasswordInvalid(false);
+    
+                window.location.reload();
+    
+            } catch(error) {
+                if(error.response.status == 400) {
+                    if(isSignup) {
+                        console.log('Username already exists');
+                        setUsernameError(false);
+                        setPasswordError(false);
+                        setUserExists(true);
+                        setPasswordInvalid(false);
+                    } else {
+                        console.log('User does not exist');
+                        setUsernameError(true);
+                        setPasswordError(false);
+                        setUserExists(false);
+                    }
+                } else if(error.response.status == 500) {
+                    console.log('Incorrect password');
                     setUsernameError(false);
-                    setPasswordError(false);
-                    setUserExists(true);
-                } else {
-                    console.log('User does not exist');
-                    setUsernameError(true);
-                    setPasswordError(false);
+                    setPasswordError(true);
                     setUserExists(false);
                 }
-            } else if(error.response.status == 500) {
-                console.log('Incorrect password');
-                setUsernameError(false);
-                setPasswordError(true);
-                setUserExists(false);
             }
-        }     
+        }    
     };
 
     const switchMode = () => {
+        setUsernameError(false);
+        setPasswordError(false);
+        setUserExists(false);
+        setPasswordDiff(false);
+        setPasswordInvalid(false);
+
         setIsSignup((prevIsSignup) => !prevIsSignup)
     };
 
@@ -148,6 +170,7 @@ const Auth = () => {
                             />
                             <div className='auth__form-container_fields-content-error'>
                                 {passwordError && <p>Incorrect password</p>}
+                                {passwordInvalid && <p>Password must be at least 6 characters in length</p>}
                             </div>
                         </div>
                         {isSignup && (
@@ -160,6 +183,9 @@ const Auth = () => {
                                     onChange={handleChange}
                                     required
                                 />
+                                <div className='auth__form-container_fields-content-error'>
+                                    {passwordDiff && <p>Passwords do not match</p>}
+                                </div>
                             </div>
                         )}
                         <div className='auth__form-container_fields-content_button'>
