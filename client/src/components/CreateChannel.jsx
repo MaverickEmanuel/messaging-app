@@ -51,7 +51,7 @@ const CreateChannel = ({ createType, setIsCreating }) => {
 			</div>
 			{createType === 'team' && <ChannelNameInput channelName={channelName} setChannelName={setChannelName} />}
 			<p className='channel-name-input__label'>Add Members</p>
-			<EditUserList setSelectedUsers={setSelectedUsers} />
+			<EditUserList setSelectedUsers={setSelectedUsers} createType={createType} />
 			{createType === 'team' ? 
 				channelName === '' ? <div className='create-channel__button-wrapper__inactive'>
 					<p>Create Channel</p>
@@ -63,7 +63,7 @@ const CreateChannel = ({ createType, setIsCreating }) => {
 				selectedUsers.length === 1 ? <div className='create-channel__button-wrapper__inactive'>
 					<p>Create Message Group</p>
 				</div> : (
-				<div className='create-channel__button-wrapper' onClick={console.log(selectedUsers)}>
+				<div className='create-channel__button-wrapper'>
 					<p>Create Message Group</p>
 				</div>
 				)

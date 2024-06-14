@@ -266,6 +266,15 @@
     /* edit message form component */
     --str-chat__edit-message-modal-send-button-color: #e4e5e7;
     --str-chat__edit-message-modal-cancel-button-color: #c9cbcf;
+
+    /* channel list component */
+    --str-chat__channel-list-empty-indicator-color: #c9cbcf;
+
+  }
+
+  .str-chat__channel-list-empty-v1 {
+    color: #36393e;
+    user-select: none;
   }
   
   .channel-empty__container {
