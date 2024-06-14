@@ -36,9 +36,12 @@ const Auth = () => {
         const { password, confirmPassword, username } = form;
 
         if(isSignup && username.length < 4) {
+            setPasswordDiff(false);
+            setPasswordInvalid(false);
             setUsernameInvalid(true);
         } else if(isSignup && password != confirmPassword) {
             setPasswordDiff(true);
+            setPasswordInvalid(false);
             setUsernameInvalid(false);
         } else if(isSignup && password.length < 6) {
             setPasswordDiff(false);
@@ -66,11 +69,11 @@ const Auth = () => {
                 };
     
                 setUsernameError(false);
-                setPasswordError(false);
+                setUsernameInvalid(false);
                 setUserExists(false);
+                setPasswordError(false);
                 setPasswordDiff(false);
                 setPasswordInvalid(false);
-                setUsernameInvalid(false);
     
                 window.location.reload();
     
