@@ -19,6 +19,7 @@ const Auth = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
     const [usernameError, setUsernameError] = useState(false);
+    const [usernameInvalid, setUsernameInvalid] = useState(false);
     const [userExists, setUserExists] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [passwordDiff, setPasswordDiff] = useState(false);
@@ -32,14 +33,17 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const { password, confirmPassword } = form;
+        const { password, confirmPassword, username } = form;
 
-
-        if(isSignup && password != confirmPassword) {
+        if(isSignup && username.length < 4) {
+            setUsernameInvalid(true);
+        } else if(isSignup && password != confirmPassword) {
             setPasswordDiff(true);
+            setUsernameInvalid(false);
         } else if(isSignup && password.length < 6) {
             setPasswordDiff(false);
             setPasswordInvalid(true);
+            setUsernameInvalid(false);
         } else {
             try {
                 const { username, password, email, avatarURL } = form;
@@ -66,6 +70,7 @@ const Auth = () => {
                 setUserExists(false);
                 setPasswordDiff(false);
                 setPasswordInvalid(false);
+                setUsernameInvalid(false);
     
                 window.location.reload();
     
@@ -77,6 +82,7 @@ const Auth = () => {
                         setPasswordError(false);
                         setUserExists(true);
                         setPasswordInvalid(false);
+                        setUsernameInvalid(false);
                     } else {
                         console.log('User does not exist');
                         setUsernameError(true);
@@ -133,6 +139,7 @@ const Auth = () => {
                             <div className='auth__form-container_fields-content-error'>
                                 {usernameError && <p>User does not exist</p>}
                                 {userExists && <p>Username already exists</p>}
+                                {usernameInvalid && <p>Username must be at least 4 characters long</p>}
                             </div>
                         </div>
                         {isSignup && (
@@ -170,7 +177,7 @@ const Auth = () => {
                             />
                             <div className='auth__form-container_fields-content-error'>
                                 {passwordError && <p>Incorrect password</p>}
-                                {passwordInvalid && <p>Password must be at least 6 characters in length</p>}
+                                {passwordInvalid && <p>Password must be at least 6 characters long</p>}
                             </div>
                         </div>
                         {isSignup && (
