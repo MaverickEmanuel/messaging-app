@@ -14,10 +14,10 @@ const TeamChannelPreview = ({ setActiveChannel, setToggleContainer, setIsCreatin
         const members = Object.values(channel.state.members).filter(({ user }) => user.id !== client.userID);
 
         return (
-            <div className='channel-preview__item single'>
+            <div className='channel-preview__item'>
                 <Avatar 
                     image={members[0]?.user?.image}
-                    name={members[0]?.user?.fullName}
+                    name={members[0]?.user?.fullName || members[0]?.user?.name || members[0]?.user?.id}
                     size={24}
                 />
                 <p>{members[0]?.user?.fullName || members[0]?.user?.name || members[0]?.user?.id}</p>

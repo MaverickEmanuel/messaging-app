@@ -268,7 +268,19 @@
     --str-chat__edit-message-modal-cancel-button-color: #c9cbcf;
 
     /* channel list component */
+    --str-chat__channel-list-color: #f2f2f3;
+    --str-chat__channel-list-load-more-color: #f2f2f3;
     --str-chat__channel-list-empty-indicator-color: #c9cbcf;
+
+  }
+
+  .str-chat__avatar {
+    font-family: Helvetica Neue, sans-serif;
+    color: #f2f2f3;
+    margin-right: 10px;
+    background: #36393e;
+    border-radius: 50%;
+    outline: 1px solid rgba(175, 178, 182, 0.2);
 
   }
 
@@ -721,13 +733,14 @@
     align-items: center;
     flex: 2;
     text-align: left;
+    color: #f2f2f3;
   }
   
   .user-item__wrapper p {
     font-family: Helvetica Neue, sans-serif;
     font-size: 14px;
     line-height: 17px;
-    color: #ffffff;
+    color: #f2f2f3;
     word-break: break-all;
   }
   
@@ -982,7 +995,7 @@
     font-size: 13px;
     line-height: 16px;
     height: 16px;
-    color: rgba(161, 165, 170, 0.66);
+    color: rgba(175, 178, 182, 0.8);
     margin-bottom: 10px;
   }
   

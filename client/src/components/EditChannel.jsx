@@ -46,6 +46,7 @@ const EditChannel = ({ setIsEditing }) => {
 		event.preventDefault();
 
 		await channel.removeMembers([client.userID]);
+		window.location.reload();
 	}
 
 	return (
@@ -58,7 +59,7 @@ const EditChannel = ({ setIsEditing }) => {
 			<p className='edit-channel__label'>View Members</p>
 			<ViewUserList setSelectedUsers={setSelectedUsers} />
 			<p className='edit-channel__label'>Add Members</p>
-			<EditUserList setSelectedUsers={setSelectedUsers} />
+			<EditUserList setSelectedUsers={setSelectedUsers} isNewChannel={false} />
 			<div className='edit-channel__button-wrapper'>
 				<p className='edit-channel__button-leave' onClick={leaveChannel}>Leave Channel</p>
 				<p className='edit-channel__button-update' onClick={updateChannel}>Save Changes</p>

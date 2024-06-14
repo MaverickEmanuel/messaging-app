@@ -30,7 +30,7 @@ const ChannelInner = ({ setIsEditing }) => {
 
 	return (
 		<GiphyContext.Provider value={{ giphyState, setGiphyState }}>
-			<div style={{ display: 'flex', width: '100%' }}>
+			<div style={{ display: 'flex', width: '100%', height: '100%' }}>
 				<Window>
 					<TeamChannelHeader setIsEditing={setIsEditing} />
 					<MessageList />

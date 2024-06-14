@@ -39,7 +39,7 @@ const UserItem = ({ user, setSelectedUsers }) => {
     )
 }
 
-const EditUserList = ({ setSelectedUsers, createType }) => {
+const EditUserList = ({ setSelectedUsers, createType, isNewChannel }) => {
     const { client, channel } = useChatContext();
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -59,7 +59,7 @@ const EditUserList = ({ setSelectedUsers, createType }) => {
             setLoading(true);
             
             try {
-                if(createType == 'team') {
+                if(createType == 'messaging') {
                     const response = await client.queryUsers(
                         { id: { $ne: client.userID } },
                         { id: 1 },
@@ -72,16 +72,30 @@ const EditUserList = ({ setSelectedUsers, createType }) => {
                         setListEmpty(true);
                     }
                 } else {
-                    const response = await client.queryUsers(
-                        { id: { $nin: channelMembers } },
-                        { id: 1 },
-                        { limit: 8 } 
-                    );
-
-                    if(response.users.length) {
-                        setUsers(response.users);
+                    if(isNewChannel) {
+                        const response = await client.queryUsers(
+                            { id: { $ne: client.userID } },
+                            { id: 1 },
+                            { limit: 8 } 
+                        );
+    
+                        if(response.users.length) {
+                            setUsers(response.users);
+                        } else {
+                            setListEmpty(true);
+                        }
                     } else {
-                        setListEmpty(true);
+                        const response = await client.queryUsers(
+                            { id: { $nin: channelMembers } },
+                            { id: 1 },
+                            { limit: 8 } 
+                        );
+    
+                        if(response.users.length) {
+                            setUsers(response.users);
+                        } else {
+                            setListEmpty(true);
+                        }
                     }
                 }
             } catch (error) {
