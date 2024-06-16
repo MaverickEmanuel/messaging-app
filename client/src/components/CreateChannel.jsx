@@ -61,10 +61,10 @@ const CreateChannel = ({ createType, setIsCreating }) => {
 				</div>
 				) : 
 				selectedUsers.length === 2 ? <div className='create-channel__button-wrapper' onClick={createChannel}>
-					<p>Create Message Group</p>
+					<p>Message User</p>
 				</div> : (
 				<div className='create-channel__button-wrapper__inactive'>
-					<p>Create Message Group</p>
+					<p>Message User</p>
 				</div>
 				)
 			}

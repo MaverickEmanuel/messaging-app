@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageList, MessageInput, Thread, Window, useChannelActionContext, Avatar, useChannelStateContext, useChatContext } from 'stream-chat-react';
 
 import { ChannelInfo } from '../assets';
+import SidebarIcon from '../assets/sidebar.png';
 
 export const GiphyContext = React.createContext({});
 
-const ChannelInner = ({ setIsEditing }) => {
+const ChannelInner = ({ setIsEditing, toggleSidebar, setToggleSidebar }) => {
 	const [giphyState, setGiphyState] = useState(false);
 	const { sendMessage } = useChannelActionContext();
 	
@@ -32,7 +33,11 @@ const ChannelInner = ({ setIsEditing }) => {
 		<GiphyContext.Provider value={{ giphyState, setGiphyState }}>
 			<div style={{ display: 'flex', width: '100%', height: '100%' }}>
 				<Window>
-					<TeamChannelHeader setIsEditing={setIsEditing} />
+					<TeamChannelHeader 
+						setIsEditing={setIsEditing} 
+						toggleSidebar={toggleSidebar}
+                    	setToggleSidebar={setToggleSidebar}
+					/>
 					<MessageList />
 					<MessageInput overrideSubmitHandler={overrideSubmitHandler} />
 				</Window>
@@ -42,9 +47,24 @@ const ChannelInner = ({ setIsEditing }) => {
 	);
 };
 
-const TeamChannelHeader = ({ setIsEditing }) => {
+const TeamChannelHeader = ({ setIsEditing, setToggleSidebar }) => {
 	const { channel, watcher_count } = useChannelStateContext();
 	const { client } = useChatContext();
+	const [width, setWidth] = useState(window.innerWidth);
+
+	function handleWindowSizeChange() {
+		setWidth(window.innerWidth);
+	}
+	useEffect(() => {
+		window.addEventListener('resize', handleWindowSizeChange);
+		return () => {
+			window.removeEventListener('resize', handleWindowSizeChange);
+		}
+	}, []);
+
+	const useToggleSidebar = width <= 960;
+
+	console.log(width);
 
 	const MessagingHeader = () => {
 		const members = Object.values(channel.state.members).filter(({ user }) => user.id !== client.userID);
@@ -53,6 +73,11 @@ const TeamChannelHeader = ({ setIsEditing }) => {
 		if(channel.type === 'messaging') {
 			return (
 				<div className='team-channel-header__name-wrapper'>
+					{useToggleSidebar && 
+						<div className='team-channel-header__open-sidebar' onClick={() => setToggleSidebar((prevToggleContainer) => !prevToggleContainer)}>
+							<img src={SidebarIcon} alt='Open Sidebar' width='30' />
+						</div>
+					}
 					{members.map(({ user }, i) => (
 						<div key={i} className='team-channel-header__name-multi'>
 							<Avatar image={user.image} name={user.fullName || user.id} size={32} />
@@ -67,6 +92,11 @@ const TeamChannelHeader = ({ setIsEditing }) => {
 
 		return (
 			<div className='team-channel-header__channel-wrapper'>
+				{useToggleSidebar && 
+					<div className='team-channel-header__open-sidebar' onClick={() => setToggleSidebar((prevToggleContainer) => !prevToggleContainer)}>
+						<img src={SidebarIcon} alt='Open Sidebar' width='30' />
+					</div>
+				}
 				<p className='team-channel-header__name'># {channel.data.name}</p>
 				<span style={{ display: 'flex' }} onClick={() => setIsEditing(true)}>
 					<ChannelInfo />

@@ -123,9 +123,7 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
   )
 }
 
-const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing }) => {
-    const [toggleContainer, setToggleContainer] = useState(false);
-
+const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing, toggleSidebar, setToggleSidebar }) => {
     return (
         <>
             <div className="channel-list__container">
@@ -137,15 +135,15 @@ const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing }) =>
             </div>
 
             <div className="channel-list__container-responsive"
-                style={{ left: toggleContainer ? "0%" : "-89%", backgroundColor: "#005fff"}}
+                style={{ left: toggleSidebar ? "0%" : "-89%", backgroundColor: "#005fff"}}
             >
-                <div className="channel-list__container-toggle" onClick={() => setToggleContainer((prevToggleContainer) => !prevToggleContainer)}>
+                <div className="channel-list__container-toggle" onClick={() => setToggleSidebar((prevToggleContainer) => !prevToggleContainer)}>
                 </div>
                     <ChannelListContent 
                     setIsCreating={setIsCreating} 
                     setCreateType={setCreateType} 
                     setIsEditing={setIsEditing}
-                    setToggleContainer={setToggleContainer}
+                    setToggleContainer={setToggleSidebar}
                 />
             </div>
         </>

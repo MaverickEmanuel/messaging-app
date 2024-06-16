@@ -30,6 +30,7 @@ const App = () => {
     const [createType, setCreateType] = useState('');
     const [isCreating, setIsCreating] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [toggleSidebar, setToggleSidebar] = useState(false);
 
     if(!authToken) return <Auth />
 
@@ -41,6 +42,8 @@ const App = () => {
                     setIsCreating={setIsCreating}
                     setCreateType={setCreateType}
                     setIsEditing={setIsEditing}
+                    toggleSidebar={toggleSidebar}
+                    setToggleSidebar={setToggleSidebar}
                 />
                 <ChannelContainer 
                     isCreating={isCreating}
@@ -48,6 +51,7 @@ const App = () => {
                     isEditing={isEditing}
                     setIsEditing={setIsEditing}
                     createType={createType}
+                    setToggleSidebar={setToggleSidebar}
                 />
             </Chat>
         </div>
