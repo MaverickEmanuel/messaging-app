@@ -227,6 +227,8 @@
 
     /* message component */
     --str-chat__message-color: #3d3f43;
+    --str-chat__message-secondary-color: #94979e;
+    --str-chat__message-status-color: #afb1b6;
     --str-chat__message-bubble-color: #3d3f43;
     --str-chat__message-bubble-background-color: #f2f2f3;
     --str-chat__own-message-bubble-color: #3d3f43;
@@ -247,6 +249,10 @@
     --str-chat__message-send-disabled-color: #e4e5e7;
     --str-chat__message-input-tools-color: #e4e5e7;
     --str-chat__message-textarea-background-color: #474b52;
+
+    /* message list component */
+    --str-chat__jump-to-latest-message-color: #94979e;
+    --str-chat__jump-to-latest-message-unread-count-color: #94979e;
 
     /* message actions component */
     --str-chat__message-actions-box-item-color: #ffffff;
