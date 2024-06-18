@@ -18,12 +18,14 @@ const initialState = {
 const Auth = () => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
-    const [usernameError, setUsernameError] = useState(false);
-    const [usernameInvalid, setUsernameInvalid] = useState(false);
+
     const [userExists, setUserExists] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
-    const [passwordDiff, setPasswordDiff] = useState(false);
-    const [passwordInvalid, setPasswordInvalid] = useState(false);
+    const [userNotExists, setUserNotExists] = useState(false);
+    const [usernameLengthError, setUsernameLengthError] = useState(false);
+    
+    const [passwordIncorrect, setPasswordIncorrect] = useState(false);
+    const [passwordLengthError, setPasswordLengthError] = useState(false);
+    const [passwordConfirmError, setPasswordConfirmError] = useState(false);
     
 
     const handleChange = (e) => {
@@ -35,18 +37,21 @@ const Auth = () => {
 
         const { password, confirmPassword, username } = form;
 
+        // if username is too short
         if(isSignup && username.length < 4) {
-            setPasswordDiff(false);
-            setPasswordInvalid(false);
-            setUsernameInvalid(true);
+            setPasswordConfirmError(false);
+            setPasswordLengthError(false);
+            setUsernameLengthError(true);
+        // if password and confirm password are different
         } else if(isSignup && password != confirmPassword) {
-            setPasswordDiff(true);
-            setPasswordInvalid(false);
-            setUsernameInvalid(false);
+            setPasswordConfirmError(true);
+            setPasswordLengthError(false);
+            setUsernameLengthError(false);
+        // if password is too short
         } else if(isSignup && password.length < 6) {
-            setPasswordDiff(false);
-            setPasswordInvalid(true);
-            setUsernameInvalid(false);
+            setPasswordConfirmError(false);
+            setPasswordLengthError(true);
+            setUsernameLengthError(false);
         } else {
             try {
                 const { username, password, email, avatarURL } = form;
@@ -68,34 +73,37 @@ const Auth = () => {
                     cookies.set('hashedPassword', hashedPassword);
                 };
     
-                setUsernameError(false);
-                setUsernameInvalid(false);
+                setUserNotExists(false);
+                setUsernameLengthError(false);
                 setUserExists(false);
-                setPasswordError(false);
-                setPasswordDiff(false);
-                setPasswordInvalid(false);
+                setPasswordIncorrect(false);
+                setPasswordConfirmError(false);
+                setPasswordLengthError(false);
     
                 window.location.reload();
     
             } catch(error) {
                 if(error.response.status == 400) {
+                    // if username already exists (on signup)
                     if(isSignup) {
                         console.log('Username already exists');
-                        setUsernameError(false);
-                        setPasswordError(false);
+                        setUserNotExists(false);
+                        setPasswordIncorrect(false);
                         setUserExists(true);
-                        setPasswordInvalid(false);
-                        setUsernameInvalid(false);
+                        setPasswordLengthError(false);
+                        setUsernameLengthError(false);
+                    // if username does not exist (on login)
                     } else {
                         console.log('User does not exist');
-                        setUsernameError(true);
-                        setPasswordError(false);
+                        setUserNotExists(true);
+                        setPasswordIncorrect(false);
                         setUserExists(false);
                     }
+                // if password is incorrect
                 } else if(error.response.status == 500) {
                     console.log('Incorrect password');
-                    setUsernameError(false);
-                    setPasswordError(true);
+                    setUserNotExists(false);
+                    setPasswordIncorrect(true);
                     setUserExists(false);
                 }
             }
@@ -103,11 +111,11 @@ const Auth = () => {
     };
 
     const switchMode = () => {
-        setUsernameError(false);
-        setPasswordError(false);
+        setUserNotExists(false);
+        setPasswordIncorrect(false);
         setUserExists(false);
-        setPasswordDiff(false);
-        setPasswordInvalid(false);
+        setPasswordConfirmError(false);
+        setPasswordLengthError(false);
 
         setIsSignup((prevIsSignup) => !prevIsSignup)
     };
@@ -140,9 +148,9 @@ const Auth = () => {
                                 required
                             />
                             <div className='auth__form-container_fields-content-error'>
-                                {usernameError && <p>User does not exist</p>}
+                                {userNotExists && <p>User does not exist</p>}
                                 {userExists && <p>Username already exists</p>}
-                                {usernameInvalid && <p>Username must be at least 4 characters long</p>}
+                                {usernameLengthError && <p>Username must be at least 4 characters long</p>}
                             </div>
                         </div>
                         {isSignup && (
@@ -179,8 +187,8 @@ const Auth = () => {
                                 required
                             />
                             <div className='auth__form-container_fields-content-error'>
-                                {passwordError && <p>Incorrect password</p>}
-                                {passwordInvalid && <p>Password must be at least 6 characters long</p>}
+                                {passwordIncorrect && <p>Incorrect password</p>}
+                                {passwordLengthError && <p>Password must be at least 6 characters long</p>}
                             </div>
                         </div>
                         {isSignup && (
@@ -194,7 +202,7 @@ const Auth = () => {
                                     required
                                 />
                                 <div className='auth__form-container_fields-content-error'>
-                                    {passwordDiff && <p>Passwords do not match</p>}
+                                    {passwordConfirmError && <p>Passwords do not match</p>}
                                 </div>
                             </div>
                         )}
